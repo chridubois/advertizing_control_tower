@@ -1,0 +1,19 @@
+version: 2
+
+models:
+  - name: monthly_performances
+    columns:
+      - name: month
+        tests:
+          - not_null
+      - name: client
+        tests:
+          - not_null
+      - name: source
+        tests:
+          - not_null
+      - name: spend
+        tests:
+          - not_null
+      - name: proposals
+      - name: closings

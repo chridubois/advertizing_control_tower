@@ -1,7 +1,0 @@
-version: 2
-
-sources:
-  - name: connector_name_destination_schema
-    tables:
-      - name: table_name_1
-      - name: table_name_2

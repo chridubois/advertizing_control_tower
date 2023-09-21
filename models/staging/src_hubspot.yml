@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: hubspot_ensol
+    tables:
+      - name: deal
+      - name: deal_pipeline
+      - name: deal_pipeline_stage
+      - name: deal_contact
+      - name: contact

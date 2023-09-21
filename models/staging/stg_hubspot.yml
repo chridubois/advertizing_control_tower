@@ -1,0 +1,24 @@
+version: 2
+
+models:
+  - name: deals
+    columns:
+      - name: account
+        tests:
+          - not_null
+      - name: deal_id
+        tests:
+          - not_null
+      - name: deal_pipeline
+        tests:
+          - not_null
+      - name: deal_stage
+        tests:
+          - not_null
+      - name: contact_id
+        tests:
+          - not_null
+      - name: contact_utm_source
+      - name: contact_utm_medium
+      - name: contact_utm_campaign
+      - name: contact_createdate
