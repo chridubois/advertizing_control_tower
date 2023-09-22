@@ -2,24 +2,17 @@
   materialized = 'view'
 ) }}
 
-WITH hubspot_deals AS (
+WITH clients AS (
 
-  SELECT
-    EXTRACT(
-      MONTH
-      FROM
-        contact_createdate
-    ) AS MONTH,
-    account AS client,
-    contact_utm_source AS source
+  SELECT clientName AS client,
+  platform AS source
   FROM
-    {{ ref('stg_hubspot_deals') }}
-  GROUP BY
-    MONTH,
-    client,
-    source
+    {{ ref('clients') }}
+), months AS (
+  SELECT month_of_the_year AS month
+  FROM
+    {{ ref('months') }}
 )
-SELECT
-  *
-FROM
-  hubspot_deals
+SELECT DISTINCT *
+FROM clients
+CROSS JOIN months

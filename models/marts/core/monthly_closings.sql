@@ -5,11 +5,15 @@
 WITH hubspot_deals AS (
 
   SELECT
-    EXTRACT(
+    CONCAT(EXTRACT(
+      YEAR
+      FROM
+        contact_createdate
+    ), '-', EXTRACT(
       MONTH
       FROM
         contact_createdate
-    ) AS MONTH,
+    )) AS MONTH,
     account AS client,
     contact_utm_source AS source,
     COUNT(

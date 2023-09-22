@@ -1,0 +1,15 @@
+version: 2
+
+sources:
+  - name: google_ads_izidore_google_ads
+    tables:
+      - name: google_ads__campaign_report
+      - name: google_ads__ad_report
+      - name: google_ads__keyword_report
+      - name: google_ads__url_report
+  - name: google_ads_begoodz_google_ads
+    tables:
+      - name: google_ads__campaign_report
+      - name: google_ads__ad_report
+      - name: google_ads__keyword_report
+      - name: google_ads__url_report

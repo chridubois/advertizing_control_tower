@@ -5,11 +5,15 @@
 WITH hubspot_deals AS (
 
   SELECT
-    EXTRACT(
+    CONCAT(EXTRACT(
+      YEAR
+      FROM
+        contact_createdate
+    ), '-', EXTRACT(
       MONTH
       FROM
         contact_createdate
-    ) AS MONTH,
+    )) AS MONTH,
     account AS client,
     contact_utm_source AS source,
     COUNT(
@@ -19,7 +23,7 @@ WITH hubspot_deals AS (
     {{ ref('stg_hubspot_deals') }}
   WHERE
     deal_stage IN (
-      'Closed Lost',
+      'Closed lost',
       'Quote signed',
       'Validated',
       'Quote sent',

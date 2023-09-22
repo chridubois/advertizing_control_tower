@@ -20,13 +20,20 @@ closings AS (
     *
   FROM
     {{ ref('monthly_closings') }}
+),
+spend AS (
+  SELECT
+    *
+  FROM
+    {{ ref('monthly_spend') }}
 )
 SELECT
   dimensions.month,
   dimensions.client,
   dimensions.source,
   proposals.proposals,
-  closings.closings
+  closings.closings,
+  spend.spend
 FROM
   dimensions
   LEFT JOIN proposals
@@ -37,3 +44,11 @@ FROM
   ON dimensions.month = closings.month
   AND dimensions.client = closings.client
   AND dimensions.source = closings.source
+  LEFT JOIN spend
+  ON dimensions.month = spend.month
+  AND dimensions.client = spend.client
+  AND dimensions.source = spend.source
+ORDER BY
+  dimensions.month,
+  dimensions.client,
+  dimensions.source

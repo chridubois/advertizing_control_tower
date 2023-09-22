@@ -1,0 +1,155 @@
+version: 2
+
+models:
+  - name: google_ads_campagins
+    columns:
+      - name: date
+        tests:
+          - not_null
+      - name: account
+        tests:
+          - not_null
+      - name: account_name
+        tests:
+          - not_null
+      - name: account_id
+        tests:
+          - not_null
+      - name: campaign_name
+        tests:
+          - not_null
+      - name: campaign_id
+        tests:
+          - not_null
+      - name: status
+        tests:
+          - not_null
+      - name: spend
+        tests:
+          - not_null
+      - name: clicks
+        tests:
+          - not_null
+      - name: impressions
+        tests:
+          - not_null
+  - name: google_ads_ads
+    columns:
+      - name: date
+        tests:
+          - not_null
+      - name: account
+        tests:
+          - not_null
+      - name: account_name
+        tests:
+          - not_null
+      - name: account_id
+        tests:
+          - not_null
+      - name: campaign_name
+        tests:
+          - not_null
+      - name: campaign_id
+        tests:
+          - not_null
+      - name: ad_group_name
+        tests:
+          - not_null
+      - name: ad_group_id
+        tests:
+          - not_null
+      - name: ad_name
+        tests:
+          - not_null
+      - name: ad_id
+        tests:
+          - not_null
+      - name: ad_status
+        tests:
+          - not_null
+      - name: spend
+        tests:
+          - not_null
+      - name: clicks
+        tests:
+          - not_null
+      - name: impressions
+        tests:
+          - not_null
+  - name: google_ads_keywords
+    columns:
+      - name: date
+        tests:
+          - not_null
+      - name: account
+        tests:
+          - not_null
+      - name: account_name
+        tests:
+          - not_null
+      - name: account_id
+        tests:
+          - not_null
+      - name: campaign_name
+        tests:
+          - not_null
+      - name: campaign_id
+        tests:
+          - not_null
+      - name: ad_group_name
+        tests:
+          - not_null
+      - name: ad_group_id
+        tests:
+          - not_null
+      - name: status
+        tests:
+          - not_null
+      - name: spend
+        tests:
+          - not_null
+      - name: clicks
+        tests:
+          - not_null
+      - name: impressions
+        tests:
+          - not_null
+  - name: google_ads_urls
+    columns:
+      - name: date
+        tests:
+          - not_null
+      - name: account
+        tests:
+          - not_null
+      - name: account_name
+        tests:
+          - not_null
+      - name: account_id
+        tests:
+          - not_null
+      - name: campaign_name
+        tests:
+          - not_null
+      - name: campaign_id
+        tests:
+          - not_null
+      - name: ad_group_name
+        tests:
+          - not_null
+      - name: ad_group_id
+        tests:
+          - not_null
+      - name: status
+        tests:
+          - not_null
+      - name: spend
+        tests:
+          - not_null
+      - name: clicks
+        tests:
+          - not_null
+      - name: impressions
+        tests:
+          - not_null
