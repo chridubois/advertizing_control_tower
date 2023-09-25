@@ -1,12 +1,14 @@
-clientName,platform,accountId
-ensol,google,123456789
-ensol,facebook,123456789
-ensol,website,123456789
-ensol,France leads,123456789
-ensol,France Leads,123456789
-ensol,achat-leads,123456789
-ensol,taboola,123456789
-Begoodz,facebook,123456789
-Begoodz,google_ads,123456789
-Izidore,facebook,123456789
-Izidore,google_ads,123456789
+clientName,platform,accountId,accountName
+ensol,google,123456789,ensol
+ensol,facebook,1212818436034615,Ensol
+ensol,website,123456789,ensol
+ensol,France leads,123456789,ensol
+ensol,France Leads,123456789,ensol
+ensol,achat-leads,123456789,ensol
+ensol,taboola,123456789,ensol
+Begoodz,facebook,10151358190677299,Lorenzo Sciotti
+Begoodz,google_ads,1425011435,Begoodz
+Izidore,facebook,286884788,Izidore
+Izidore,google_ads,2117371614,Touloa - Les Cartons
+Edgar,facebook,123456789,Edgar App
+LaNaturopathie,facebook,20201671,	Holi's

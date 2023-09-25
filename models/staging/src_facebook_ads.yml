@@ -1,0 +1,18 @@
+version: 2
+
+sources:
+  - name: facebook_ads2_facebook_ads
+    tables:
+      - name: facebook_ads__account_report
+      - name: facebook_ads__ad_report
+      - name: facebook_ads__ad_set_report
+      - name: facebook_ads__campaign_report
+      - name: facebook_ads__url_report
+      - name: facebook_ads__url_tags
+  - name: facebook_ads2
+    tables:
+      - name: basic_campaign
+      - name: basic_ad
+      - name: basic_campaign_actions
+      - name: basic_ad_actions
+      - name: campaign_history

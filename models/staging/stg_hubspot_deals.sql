@@ -50,14 +50,15 @@ contact AS (
 )
 SELECT
   "ensol" AS account,
+  c.property_createdate AS date,
   d.deal_id AS deal_id,
   dp.label AS deal_pipeline,
   dps.label AS deal_stage,
+  d.property_amount AS deal_amount,
   c.id AS contact_id,
   c.property_utm_source AS contact_utm_source,
   c.property_utm_medium AS contact_utm_medium,
   c.property_utm_campaign AS contact_utm_campaign,
-  c.property_createdate AS contact_createdate
 FROM
   deal d
 JOIN deal_pipeline dp

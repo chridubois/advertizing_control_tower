@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: deals
+  - name: stg_hubspot_deals
     columns:
       - name: account
         tests:
@@ -21,4 +21,4 @@ models:
       - name: contact_utm_source
       - name: contact_utm_medium
       - name: contact_utm_campaign
-      - name: contact_createdate
+      - name: date

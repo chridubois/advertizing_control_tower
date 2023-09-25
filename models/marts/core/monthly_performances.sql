@@ -9,45 +9,51 @@ WITH dimensions AS (
   FROM
     {{ ref('monthly_dimensions') }}
 ),
-proposals AS (
-  SELECT
-    *
-  FROM
-    {{ ref('monthly_proposals') }}
-),
-closings AS (
-  SELECT
-    *
-  FROM
-    {{ ref('monthly_closings') }}
-),
 spend AS (
   SELECT
     *
   FROM
     {{ ref('monthly_spend') }}
+),
+monthly_hubspot_performances AS (
+  SELECT
+    *
+  FROM
+    {{ ref('monthly_hubspot_performances') }}
+),
+clients AS (
+
+  SELECT *
+  FROM
+    {{ ref('clients') }}
 )
-SELECT
+SELECT DISTINCT
   dimensions.month,
   dimensions.client,
   dimensions.source,
-  proposals.proposals,
-  closings.closings,
-  spend.spend
+  spend.impressions,
+  spend.clicks,
+  spend.spend,
+  monthly_hubspot_performances.deal_amount,
+  monthly_hubspot_performances.proposals,
+  monthly_hubspot_performances.closings,
+  -- spend.spend / proposals.proposals AS cpl,
+  -- closings.closings / proposals.proposals AS closingRate,
+  -- spend.spend / closings.closings AS cpa,
+  -- spend.spend / closings.closings * 100 AS roas
 FROM
   dimensions
-  LEFT JOIN proposals
-  ON dimensions.month = proposals.month
-  AND dimensions.client = proposals.client
-  AND dimensions.source = proposals.source
-  LEFT JOIN closings
-  ON dimensions.month = closings.month
-  AND dimensions.client = closings.client
-  AND dimensions.source = closings.source
+  LEFT JOIN clients
+  ON dimensions.client = clients.clientName
+  AND dimensions.source = clients.platform
   LEFT JOIN spend
   ON dimensions.month = spend.month
-  AND dimensions.client = spend.client
+  AND clients.accountName = spend.client
   AND dimensions.source = spend.source
+  LEFT JOIN monthly_hubspot_performances
+  ON dimensions.month = monthly_hubspot_performances.month
+  AND clients.accountName = monthly_hubspot_performances.client
+  AND dimensions.source = monthly_hubspot_performances.source
 ORDER BY
   dimensions.month,
   dimensions.client,
