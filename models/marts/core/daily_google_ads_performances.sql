@@ -84,4 +84,4 @@ FROM
   google_ads_perfs
   LEFT JOIN clients
   ON google_ads_perfs.customer_id = clients.accountId
-  AND clients.platform = 'google_ads'
+  AND clients.platform IN ('google_ads', 'google')

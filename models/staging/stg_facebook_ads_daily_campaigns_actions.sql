@@ -1,5 +1,5 @@
 {{ config(
-  materialized = 'table'
+  materialized = 'view'
 ) }}
 
 WITH basic_campaign_actions AS (
@@ -13,27 +13,7 @@ WITH basic_campaign_actions AS (
     ) }}
 )
 SELECT
-  CAST(
-    CONCAT(
-      EXTRACT(
-        YEAR
-        FROM
-          DATE
-      ),
-      '-',
-      EXTRACT(
-        MONTH
-        FROM
-          DATE
-      ),
-      '-',
-      EXTRACT(
-        DAY
-        FROM
-          DATE
-      )
-    ) AS DATE
-  ) AS DATE,
+  date,
   CONCAT(
     EXTRACT(
       YEAR
@@ -51,11 +31,6 @@ SELECT
     campaign_id AS INTEGER
   ) AS campaign_id,
   action_type,
-  SUM(VALUE) AS action_value
+  value
 FROM
   basic_campaign_actions
-GROUP BY
-  date,
-  MONTH,
-  campaign_id,
-  action_type

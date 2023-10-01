@@ -2,15 +2,23 @@
   materialized = 'view'
 ) }}
 
-{% set accounts =  ['google_ads_izidore_google_ads', 'google_ads_begoodz_google_ads'] %}
-
+{% set accounts = ['google_ads_izidore_google_ads', 'google_ads_begoodz_google_ads', 'google_ads_ensol_google_ads'] %}
 {% for account in accounts %}
-  select
-      *,
-      CASE
+
+  SELECT
+    *,
+    CASE
       WHEN '{{ account }}' = 'google_ads_izidore_google_ads' THEN 'Izidore'
       WHEN '{{ account }}' = 'google_ads_begoodz_google_ads' THEN 'Begoodz'
-      END as client,
-  from {{ source(account, 'google_ads__campaign_report') }}
-{% if not loop.last -%} union all {%- endif %}
-{% endfor %}
+      WHEN '{{ account }}' = 'google_ads_ensol_google_ads' THEN 'ensol'
+    END AS client
+  FROM
+    {{ source(
+      account,
+      'google_ads__campaign_report'
+    ) }}
+
+    {% if not loop.last -%}
+    UNION ALL
+    {%- endif %}
+  {% endfor %}

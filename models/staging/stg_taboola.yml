@@ -1,0 +1,8 @@
+version: 2
+
+models:
+  - name: stg_taboola_ads_campaigns
+    columns:
+      - name: date
+        tests:
+          - not_null

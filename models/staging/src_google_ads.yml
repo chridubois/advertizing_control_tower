@@ -13,9 +13,18 @@ sources:
       - name: google_ads__ad_report
       - name: google_ads__keyword_report
       - name: google_ads__url_report
+  - name: google_ads_ensol_google_ads
+    tables:
+      - name: google_ads__campaign_report
+      - name: google_ads__ad_report
+      - name: google_ads__keyword_report
+      - name: google_ads__url_report
   - name: google_ads_izidore
     tables:
       - name: campaign_stats
   - name: google_ads_begoodz
+    tables:
+      - name: campaign_stats
+  - name: google_ads_ensol
     tables:
       - name: campaign_stats

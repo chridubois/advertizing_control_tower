@@ -5,32 +5,9 @@
 WITH hubspot_deals AS (
 
   SELECT
-    *,
-    (
-      CASE
-        WHEN deal_stage IN (
-          'Closed lost',
-          'Quote signed',
-          'Validated',
-          'Quote sent',
-          'Installation done'
-        ) THEN 1
-        ELSE 0
-      END
-    ) AS proposals,
-    (
-      CASE
-        WHEN deal_stage IN (
-          'Closed Won',
-          'Quote signed',
-          'Validated',
-          'Installation done'
-        ) THEN 1
-        ELSE 0
-      END
-    ) AS closings
+    *
   FROM
-    {{ ref('stg_hubspot_deals') }}
+    {{ ref('stg_hubspot_contacts') }}
 )
 SELECT
   CAST(
@@ -70,15 +47,21 @@ SELECT
   account AS client,
   contact_utm_source AS source,
   deal_stage,
+  COUNT(
+    DISTINCT contact_id
+  ) AS contacts,
   SUM(
     deal_amount
   ) AS deal_amount,
   SUM(
-    proposals
-  ) AS proposals,
+    deal
+  ) AS deals,
   SUM(
-    closings
-  ) AS closings
+    quote_sent
+  ) AS quote_sent,
+  SUM(
+    quote_signed
+  ) AS quote_signed
 FROM
   hubspot_deals
 GROUP BY

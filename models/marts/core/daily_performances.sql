@@ -36,8 +36,10 @@ SELECT
   spend.clicks,
   spend.spend,
   daily_hubspot_performances.deal_amount,
-  daily_hubspot_performances.proposals,
-  daily_hubspot_performances.closings
+  daily_hubspot_performances.contacts,
+  daily_hubspot_performances.deals,
+  daily_hubspot_performances.quote_sent,
+  daily_hubspot_performances.quote_signed,
 FROM
   dimensions
   LEFT JOIN clients
