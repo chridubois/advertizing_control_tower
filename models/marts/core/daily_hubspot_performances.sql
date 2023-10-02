@@ -46,7 +46,6 @@ SELECT
   ) AS MONTH,
   account AS client,
   contact_utm_source AS source,
-  deal_stage,
   COUNT(
     DISTINCT contact_id
   ) AS contacts,
@@ -68,5 +67,4 @@ GROUP BY
   DATE,
   MONTH,
   client,
-  source,
-  deal_stage
+  source

@@ -45,27 +45,7 @@ WITH google_ads_spend AS (
 ),
 facebook_ads_spend AS (
   SELECT
-    CAST(
-      CONCAT(
-        EXTRACT(
-          YEAR
-          FROM
-            date_day
-        ),
-        '-',
-        EXTRACT(
-          MONTH
-          FROM
-            date_day
-        ),
-        '-',
-        EXTRACT(
-          DAY
-          FROM
-            date_day
-        )
-      ) AS DATE
-    ) AS DATE,
+    date_day AS DATE,
     CONCAT(
       EXTRACT(
         YEAR
@@ -91,7 +71,7 @@ facebook_ads_spend AS (
       impressions
     ) AS impressions
   FROM
-    {{ ref('stg_facebook_ads_accounts') }}
+    {{ ref('stg_facebook_ads_campaigns') }}
   GROUP BY
     DATE,
     MONTH,
@@ -148,7 +128,7 @@ taboola_ads_spend AS (
   FROM
     {{ ref('stg_taboola_ads_campaigns') }}
   GROUP BY
-    DATE,
+
     MONTH,
     client,
     source

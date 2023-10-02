@@ -1,0 +1,6 @@
+version: 2
+
+sources:
+  - name: google_sheets_spend_bricks
+    tables:
+      - name: google_sheets_spend_ensol
