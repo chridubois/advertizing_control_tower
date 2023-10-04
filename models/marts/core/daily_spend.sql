@@ -6,18 +6,22 @@ WITH google_ads_spend AS (
 
   SELECT
     DATE,
-    CONCAT(
-      EXTRACT(
-        YEAR
-        FROM
-          DATE
-      ),
-      '-',
-      EXTRACT(
-        MONTH
-        FROM
-          DATE
-      )
+    CAST(
+      CONCAT(
+        EXTRACT(
+          YEAR
+          FROM
+            DATE
+        ),
+        '-',
+        EXTRACT(
+          MONTH
+          FROM
+            DATE
+        ),
+        '-',
+        '01'
+      ) AS DATE
     ) AS MONTH,
     client,
     (
@@ -46,18 +50,22 @@ WITH google_ads_spend AS (
 facebook_ads_spend AS (
   SELECT
     date_day AS DATE,
-    CONCAT(
-      EXTRACT(
-        YEAR
-        FROM
-          date_day
-      ),
-      '-',
-      EXTRACT(
-        MONTH
-        FROM
-          date_day
-      )
+    CAST(
+      CONCAT(
+        EXTRACT(
+          YEAR
+          FROM
+            date_day
+        ),
+        '-',
+        EXTRACT(
+          MONTH
+          FROM
+            date_day
+        ),
+        '-',
+        '01'
+      ) AS DATE
     ) AS MONTH,
     account_name AS client,
     'facebook' AS source,
@@ -101,18 +109,22 @@ taboola_ads_spend AS (
         )
       ) AS DATE
     ) AS DATE,
-    CONCAT(
-      EXTRACT(
-        YEAR
-        FROM
-          date_time
-      ),
-      '-',
-      EXTRACT(
-        MONTH
-        FROM
-          date_time
-      )
+    CAST(
+      CONCAT(
+        EXTRACT(
+          YEAR
+          FROM
+            date_time
+        ),
+        '-',
+        EXTRACT(
+          MONTH
+          FROM
+            date_time
+        ),
+        '-',
+        '01'
+      ) AS DATE
     ) AS MONTH,
     client,
     source,
@@ -128,10 +140,37 @@ taboola_ads_spend AS (
   FROM
     {{ ref('stg_taboola_ads_campaigns') }}
   GROUP BY
-
+    DATE,
     MONTH,
     client,
     source
+),
+autres_platform_spend AS (
+  SELECT
+    CAST(
+      MONTH AS DATE
+    ) AS DATE,
+    CAST(
+      MONTH AS DATE
+    ) AS MONTH,
+    'ensol' AS client,
+    (
+      CASE
+        WHEN platform IN (
+          'France leads',
+          'france leads'
+        ) THEN 'France Leads'
+        ELSE platform
+      END
+    ) AS source,
+    spend,
+    0 AS clicks,
+    0 AS impressions
+  FROM
+    {{ source(
+      'google_sheets_spend_bricks',
+      'google_sheets_spend_ensol'
+    ) }}
 )
 SELECT
   *
@@ -147,6 +186,11 @@ SELECT
   *
 FROM
   taboola_ads_spend
+UNION ALL
+SELECT
+  *
+FROM
+  autres_platform_spend
 ORDER BY
   DATE,
   MONTH,

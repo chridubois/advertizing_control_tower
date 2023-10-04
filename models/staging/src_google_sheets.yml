@@ -4,3 +4,6 @@ sources:
   - name: google_sheets_spend_bricks
     tables:
       - name: google_sheets_spend_ensol
+  - name: google_sheet_budget_ensol
+    tables:
+      - name: google_sheet_budget_ensol

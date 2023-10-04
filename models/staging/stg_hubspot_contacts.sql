@@ -80,26 +80,29 @@ SELECT
       ELSE 0
     END
   ) AS quote_signed,
-  dp.label AS deal_pipeline,
-  dps.label AS deal_stage,
-  d.property_amount AS deal_amount,
-  C.id AS contact_id,
   (
-    CASE
-      WHEN C.property_utm_source IS NULL
-      OR C.property_utm_source = '' THEN 'autre'
-      ELSE C.property_utm_source
-    END
-  ) AS contact_utm_source,
-  C.property_utm_medium AS contact_utm_medium,
-  C.property_utm_campaign AS contact_utm_campaign,
-FROM
-  contact C
-  LEFT JOIN deal_contact dc
-  ON dc.contact_id = C.id
-  LEFT JOIN deal d
-  ON d.deal_id = dc.deal_id
-  LEFT JOIN deal_pipeline dp
-  ON dp.pipeline_id = d.deal_pipeline_id
-  LEFT JOIN deal_pipeline_stage dps
-  ON dps.stage_id = d.deal_pipeline_stage_id
+    IF(dps.label IN ('Quote sent')
+    AND d.property_hs_deal_stage_probability >= 0.8, 1, 0)) AS quote_pending_high_probability,
+    dp.label AS deal_pipeline,
+    dps.label AS deal_stage,
+    d.property_amount AS deal_amount,
+    C.id AS contact_id,
+    (
+      CASE
+        WHEN C.property_utm_source IS NULL
+        OR C.property_utm_source = '' THEN 'autre'
+        ELSE C.property_utm_source
+      END
+    ) AS contact_utm_source,
+    C.property_utm_medium AS contact_utm_medium,
+    C.property_utm_campaign AS contact_utm_campaign,
+    FROM
+      contact C
+      LEFT JOIN deal_contact dc
+      ON dc.contact_id = C.id
+      LEFT JOIN deal d
+      ON d.deal_id = dc.deal_id
+      LEFT JOIN deal_pipeline dp
+      ON dp.pipeline_id = d.deal_pipeline_id
+      LEFT JOIN deal_pipeline_stage dps
+      ON dps.stage_id = d.deal_pipeline_stage_id

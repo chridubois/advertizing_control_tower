@@ -31,18 +31,22 @@ SELECT
       )
     ) AS DATE
   ) AS DATE,
-  CONCAT(
-    EXTRACT(
-      YEAR
-      FROM
-        DATE
-    ),
-    '-',
-    EXTRACT(
-      MONTH
-      FROM
-        DATE
-    )
+  CAST(
+    CONCAT(
+      EXTRACT(
+        YEAR
+        FROM
+          DATE
+      ),
+      '-',
+      EXTRACT(
+        MONTH
+        FROM
+          DATE
+      ),
+      '-',
+      '01'
+    ) AS DATE
   ) AS MONTH,
   account AS client,
   contact_utm_source AS source,
@@ -60,7 +64,10 @@ SELECT
   ) AS quote_sent,
   SUM(
     quote_signed
-  ) AS quote_signed
+  ) AS quote_signed,
+  SUM(
+    quote_pending_high_probability
+  ) AS quote_pending_high_probability
 FROM
   hubspot_deals
 GROUP BY
