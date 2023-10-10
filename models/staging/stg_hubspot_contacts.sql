@@ -50,7 +50,13 @@ SELECT
         'Validated',
         'Quote sent',
         'Installation done'
-      ) THEN 1
+      )
+      AND C.account = 'ensol' THEN 1
+      WHEN dps.label IN (
+        'Contact signed - closed won',
+        'Contract sent'
+      )
+      AND C.account = 'eversun' THEN 1
       ELSE 0
     END
   ) AS quote_sent,
@@ -61,13 +67,25 @@ SELECT
         'Quote signed',
         'Validated',
         'Installation done'
-      ) THEN 1
+      )
+      AND C.account = 'ensol' THEN 1
+      WHEN dps.label IN (
+        'Contact signed - closed won'
+      )
+      AND C.account = 'eversun' THEN 1
       ELSE 0
     END
   ) AS quote_signed,
-  (
-    IF(dps.label IN ('Quote sent')
-    AND d.property_hs_deal_stage_probability >= 0.8, 1, 0)) AS quote_pending_high_probability,
+  IF(
+    (
+      (dps.label IN ('Quote sent')
+      AND C.account = 'ensol')
+      OR (dps.label IN ('Quote sent')
+      AND C.account = 'eversun'))
+      AND d.property_hs_deal_stage_probability >= 0.8,
+      1,
+      0
+    ) AS quote_pending_high_probability,
     dp.label AS deal_pipeline,
     dps.label AS deal_stage,
     d.property_amount AS deal_amount,
@@ -87,9 +105,13 @@ SELECT
       contact C
       LEFT JOIN deal_contact dc
       ON dc.contact_id = C.id
+      AND dc.account = C.account
       LEFT JOIN deal d
       ON d.deal_id = dc.deal_id
+      AND d.account = C.account
       LEFT JOIN deal_pipeline dp
       ON dp.pipeline_id = d.deal_pipeline_id
+      AND dp.account = C.account
       LEFT JOIN deal_pipeline_stage dps
       ON dps.stage_id = d.deal_pipeline_stage_id
+      AND dps.account = C.account
