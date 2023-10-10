@@ -7,49 +7,34 @@ WITH deal AS (
   SELECT
     *
   FROM
-    {{ source(
-      'hubspot_ensol',
-      'deal'
-    ) }}
+    {{ ref('stg_hubspot_deal_union') }}
 ),
 deal_pipeline AS (
   SELECT
     *
   FROM
-    {{ source(
-      'hubspot_ensol',
-      'deal_pipeline'
-    ) }}
+    {{ ref('stg_hubspot_deal_pipeline_union') }}
 ),
 deal_pipeline_stage AS (
   SELECT
     *
   FROM
-    {{ source(
-      'hubspot_ensol',
-      'deal_pipeline_stage'
-    ) }}
+    {{ ref('stg_hubspot_deal_pipeline_stage_union') }}
 ),
 deal_contact AS (
   SELECT
     *
   FROM
-    {{ source(
-      'hubspot_ensol',
-      'deal_contact'
-    ) }}
+    {{ ref('stg_hubspot_deal_contact_union') }}
 ),
 contact AS (
   SELECT
     *
   FROM
-    {{ source(
-      'hubspot_ensol',
-      'contact'
-    ) }}
+    {{ ref('stg_hubspot_contact_union') }}
 )
 SELECT
-  "ensol" AS account,
+  C.account,
   c.property_createdate AS date,
   d.deal_id AS deal_id,
   dp.label AS deal_pipeline,

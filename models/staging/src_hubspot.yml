@@ -8,3 +8,10 @@ sources:
       - name: deal_pipeline_stage
       - name: deal_contact
       - name: contact
+  - name: hubspot_eversun
+    tables:
+      - name: deal
+      - name: deal_pipeline
+      - name: deal_pipeline_stage
+      - name: deal_contact
+      - name: contact
