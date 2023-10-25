@@ -92,9 +92,11 @@ SELECT
     C.id AS contact_id,
     (
       CASE
-        WHEN C.property_utm_source IS NULL
-        OR C.property_utm_source = ''
-        OR C.property_utm_source = 'ig' THEN 'autre'
+        WHEN (
+          C.property_utm_source IS NULL
+          OR C.property_utm_source = ''
+        ) THEN 'autre'
+        WHEN C.property_utm_source = 'ig' THEN 'facebook'
         WHEN C.property_utm_source = 'fb' THEN 'facebook'
         ELSE C.property_utm_source
       END
